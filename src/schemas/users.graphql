@@ -89,6 +89,10 @@ input UpdateEntryInput {
   locale: String
 }
 
+input CreateEntryInput {
+  lastName: String
+}
+
 union EntryUnion = Clinic | Physician | User
 
 type ListUsersResponse @aws_api_key @aws_iam {
@@ -148,6 +152,7 @@ extend type Query {
 }
 
 extend type Mutation {
+  createUser(input: CreateEntryInput!): EntryUnion! @aws_iam
   updateUser(input: UpdateEntryInput!): EntryUnion! @aws_iam
   deleteUser(input: DeleteUserInput!): ID! @aws_iam
   uploadProfileImage(input: UploadProfileImageInput!): ProfileImage! @aws_iam

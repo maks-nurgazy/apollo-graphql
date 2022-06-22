@@ -6,12 +6,13 @@ import { authorsResolvers } from './resolvers/authors';
 
 /*Local dependencies */
 import { booksResolvers } from './resolvers/books';
+import { usersResolvers } from './resolvers/users';
 
 const server = new ApolloServer({
   typeDefs: loadSchemaSync('src/schemas/**/*.graphql', {
     loaders: [new GraphQLFileLoader()],
   }),
-  resolvers: [booksResolvers, authorsResolvers],
+  resolvers: [booksResolvers, authorsResolvers, usersResolvers],
 });
 
 server.listen().then(({ url }: any) => {
