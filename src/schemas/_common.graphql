@@ -1,0 +1,150 @@
+# graphql/common.graphql
+
+type Address @aws_api_key @aws_iam {
+  address: String!
+  addressExtra: String
+  city: String!
+  country: String!
+  zipCode: String
+  geoLocation: String
+}
+
+input AddressInput {
+  address: String!
+  addressExtra: String
+  city: String!
+  country: String!
+  zipCode: String
+  geoLocation: String
+}
+
+type Period @aws_api_key @aws_iam {
+  from: AWSTimestamp!
+  to: AWSTimestamp
+ }
+
+input PeriodInput {
+  from: AWSTimestamp!
+  to: AWSTimestamp
+ }
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum BloodType {
+  O_ONE_PLUS
+  O_ONE_MINUS
+  A_TWO_PLUS
+  A_TWO_MINUS
+  B_THREE_PLUS
+  B_THREE_MINUS
+  AB_FOUR_PLUS
+  AB_FOUR_MINUS
+}
+
+type Price @aws_api_key @aws_iam {
+  isFrom: Boolean
+  value: String!
+  currency: String!
+}
+
+input PriceInput {
+  isFrom: Boolean
+  value: String!
+  currency: String!
+}
+
+type Anthropometry @aws_api_key @aws_iam {
+  value: Int!
+  unit: String!
+}
+
+input AnthropometryInput {
+  value: Int!
+  unit: String!
+}
+
+type Insurance @aws_api_key @aws_iam {
+  name: String
+  status: Int!
+  startDate: AWSDate
+  endDate: AWSDate
+}
+
+enum EntryType {
+  CLINIC
+  HOSPITAL
+  PHYSICIAN
+  USER
+}
+
+type Rating @aws_api_key @aws_iam {
+  avgRating: Float!
+  numReviews: Int!
+}
+
+type WorkPhone @aws_api_key @aws_iam {
+  value: AWSPhone!
+}
+
+input WorkPhoneInput {
+  value: AWSPhone!
+}
+
+type Email @aws_api_key @aws_iam {
+  value: AWSEmail!
+}
+
+input EmailInput {
+  value: AWSEmail!
+}
+
+type SocialNetwork @aws_api_key @aws_iam {
+  value: String!
+}
+
+input SocialNetworkInput {
+  value: String!
+}
+
+type Contacts @aws_api_key @aws_iam {
+  workPhone: [WorkPhone]
+  whatsApp: SocialNetwork
+  telegram: SocialNetwork
+  email: Email
+  instagram: SocialNetwork
+  facebook: SocialNetwork
+  website: SocialNetwork
+}
+
+input ContactsInput {
+  workPhone: [WorkPhoneInput]
+  whatsApp: SocialNetworkInput
+  telegram: SocialNetworkInput
+  email: EmailInput
+  instagram: SocialNetworkInput
+  facebook: SocialNetworkInput
+  website: SocialNetworkInput
+}
+
+interface Entry {
+  # Cognito provided ID.
+  id: ID!
+  # User provided inputs
+  avatar: AWSURL
+  consultationPrice: Price
+  contacts: Contacts
+  email: AWSEmail
+  phone: AWSPhone!
+  phonesExtra: [String]
+  profileCompletionRate: Float
+  servicesDescription: String
+  services: [Service]
+  specialities: [String]
+  url: AWSURL
+  # Auto populated
+  joinDate: AWSTimestamp!
+  _typename: EntryType!
+}

@@ -1,0 +1,12 @@
+type Attachment {
+  id: ID!
+  date: AWSTimestamp!
+  notes: String
+  url: AWSURL
+}
+
+input AttachmentInput {
+  date: AWSTimestamp!
+  notes: String
+  url: AWSURL
+}

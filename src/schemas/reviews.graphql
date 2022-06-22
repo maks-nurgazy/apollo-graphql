@@ -1,0 +1,45 @@
+# graphql/reviews.graphql
+
+type Review @aws_api_key @aws_iam {
+  id: String!
+  reviewer: Entry!
+  message: String!
+  likes: Int!
+  rating: Float!
+  postDate: AWSTimestamp!
+}
+
+input ListReviewsInput {
+  from: Int
+  query: String
+  size: Int
+  id: String!
+}
+
+input CreateReviewInput {
+  id: String!
+  message: String!
+  rating: Int!
+}
+
+input UpdateReviewInput {
+  id: String!
+  postDate: AWSTimestamp!
+  message: String
+  likes: Int
+  rating: Int
+}
+
+type ListReviewsResponse @aws_api_key @aws_iam {
+  total: Int!
+  reviews: [Review]
+}
+
+extend type Query {
+  listReviews(input: ListReviewsInput!): ListReviewsResponse! @aws_api_key @aws_iam
+}
+
+extend type Mutation {
+  createReview(input: CreateReviewInput!): Review! @aws_api_key @aws_iam
+  updateReview(input: UpdateReviewInput!): Review! @aws_api_key @aws_iam
+}

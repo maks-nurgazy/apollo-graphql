@@ -1,0 +1,115 @@
+# graphql/article.graphql
+
+enum ContentType {
+  IMAGE
+  MARKDOWN
+  YOUTUBE
+}
+
+type Content @aws_api_key @aws_iam {
+  type: ContentType!
+  data: String!
+}
+
+input ContentInput {
+  type: ContentType!
+  data: String!
+}
+
+type MediaFile @aws_api_key @aws_iam {
+  imageUrl: AWSURL
+  fullVideoUrl: AWSURL
+}
+
+input MediaFileInput {
+  imageUrl: AWSURL
+  fullVideoUrl: AWSURL
+}
+
+type Article @aws_api_key @aws_iam {
+  articleType: ArticleType!
+  author: User!
+  category: String!
+  clinic: Clinic
+  contents: [Content]
+  createDate: AWSTimestamp!
+  heroMedia: MediaFile!
+  id: ID!
+  readTimeMinute: Int
+  physician: Physician
+  slug: String
+  synopsis: String!
+  title: String!
+}
+
+enum ArticleType {
+  CLIPPED_CARD
+  OVERLAYED_CARD
+}
+
+input CreateArticleInput {
+  articleType: ArticleType!
+  author: ArticleAuthorInput
+  category: String
+  clinic: ArticleClinicInput
+  contents: [ContentInput]
+  heroMedia: MediaFileInput
+  physician: ArticlePhysicianInput
+  synopsis: String
+  title: String!
+}
+
+input ArticleAuthorInput {
+  id: ID!
+}
+
+input ArticleClinicInput {
+  id: ID!
+}
+
+input ArticlePhysicianInput {
+  id: ID!
+}
+
+input UpdateArticleInput {
+  articleType: ArticleType
+  author: ArticleAuthorInput
+  category: String
+  clinic: ArticleClinicInput
+  contents: [ContentInput]
+  heroMedia: MediaFileInput
+  id: ID!
+  physician: ArticlePhysicianInput
+  synopsis: String
+  title: String
+}
+
+type ListArticlesResponse @aws_api_key @aws_iam {
+  total: Int!
+  articles: [Article]
+}
+
+input DeleteArticleInput {
+  id: ID!
+}
+
+input GetArticleInput {
+  id: ID!
+}
+
+input ListArticlesInput {
+  from: Int
+  query: String
+  size: Int
+}
+
+extend type Query {
+  getArticle(input: GetArticleInput!): Article! @aws_api_key @aws_iam
+  listArticles(input: ListArticlesInput): ListArticlesResponse! @aws_api_key @aws_iam
+}
+
+extend type Mutation {
+  createArticle(article: CreateArticleInput!): Article!
+  updateArticle(article: UpdateArticleInput!): Article!
+  deleteArticle(input: DeleteArticleInput!): ID!
+}

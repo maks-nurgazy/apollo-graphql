@@ -1,0 +1,11 @@
+type Education @aws_api_key @aws_iam {
+  institution: String!
+  studyPeriod: Period!
+  department: String!
+}
+
+input EducationInput {
+  institution: String!
+  studyPeriod: PeriodInput!
+  department: String!
+}

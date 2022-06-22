@@ -1,0 +1,154 @@
+# graphql/users.graphql
+
+type User implements Entry @aws_api_key @aws_iam {
+  # Entry fields
+  # Cognito provided ID.
+  id: ID!
+  # User provided inputs
+  avatar: AWSURL
+  consultationPrice: Price
+  contacts: Contacts
+  email: AWSEmail
+  phone: AWSPhone!
+  phonesExtra: [String]
+  profileCompletionRate: Float
+  personalIdentificationNumber: String
+  servicesDescription: String
+  services: [Service]
+  specialities: [String]
+  occupation: String
+  url: AWSURL
+  # Auto populated
+  joinDate: AWSTimestamp!
+  _typename: EntryType!
+
+  # BaseUser fields
+  # User provided inputs
+  firstName: String!
+  lastName: String!
+  patronymic: String
+  workspaces: [Workplace]
+  height: Anthropometry
+  birthDate: AWSTimestamp
+  bloodType: BloodType
+  placeOfResidence: Address
+  weight: Anthropometry
+  gender: Gender
+  insurance: Insurance
+  emergencyContact: [TelephoneContact]
+}
+
+input UpdateEntryInput {
+  # Entry fields
+  # Cognito provided ID.
+  id: ID!
+  # User provided inputs
+  avatar: String
+  consultationPrice: PriceInput
+  email: AWSEmail
+  phone: AWSPhone
+  phonesExtra: [String]
+  servicesDescription: String
+  specialities: [String]
+  occupation: String
+  url: AWSURL
+  services: [ServiceInput]
+  bio: String
+  physicianCategory: PhysicianCategory
+  educations: [EducationInput]
+  contacts: ContactsInput
+  _typename: EntryType
+
+  # BaseUser fields
+  # User provided inputs
+  firstName: String
+  lastName: String
+  patronymic: String
+  education: String
+  experience: String
+  experienceSince: AWSTimestamp
+  level: String
+  workspaces: [WorkplaceInput]
+  workExperience: [WorkExperienceInput]
+  height: AnthropometryInput
+  birthDate: AWSTimestamp
+  bloodType: BloodType
+  placeOfResidence: AddressInput
+  weight: AnthropometryInput
+  gender: Gender
+  personalIdentificationNumber: String
+  emergencyContact: [TelephoneContactInput]
+
+  # BaseClinic fields
+  # User provided inputs
+  clinicName: String
+  clinicAddress: String
+  alternateName: String
+  description: String
+
+  locale: String
+}
+
+union EntryUnion = Clinic | Physician | User
+
+type ListUsersResponse @aws_api_key @aws_iam {
+  total: Int!
+  users: [EntryUnion]
+}
+
+input DeleteUserInput {
+  id: ID!
+}
+
+input GetUserInput {
+  id: ID!
+}
+
+input GetUserInsuranceInput {
+  personalIdentificationNumber: String!
+}
+
+input ListUsersInput {
+  from: Int
+  query: String
+  size: Int
+  filter: ListUsersFilter
+}
+
+input UploadProfileImageInput {
+  file: String!
+}
+
+type ProfileImage @aws_api_key @aws_iam {
+  url: String!
+}
+
+input TelephoneContactInput {
+  name: String
+  relation: String
+  phone: AWSPhone!
+}
+
+type TelephoneContact @aws_api_key @aws_iam {
+  name: String
+  relation: String
+  phone: AWSPhone!
+}
+
+input ListUsersFilter {
+  locale: String
+  entryTypes: [String]
+}
+
+extend type Query {
+  getUser(input: GetUserInput!): Entry! @aws_api_key @aws_iam
+  listUsers(input: ListUsersInput): ListUsersResponse! @aws_api_key @aws_iam
+  listPhysicians(input: ListUsersInput): ListUsersResponse! @aws_api_key @aws_iam
+  getUserInsurance(input: GetUserInsuranceInput!): Insurance! @aws_api_key @aws_iam
+}
+
+extend type Mutation {
+  updateUser(input: UpdateEntryInput!): EntryUnion! @aws_iam
+  deleteUser(input: DeleteUserInput!): ID! @aws_iam
+  uploadProfileImage(input: UploadProfileImageInput!): ProfileImage! @aws_iam
+}

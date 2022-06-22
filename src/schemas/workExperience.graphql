@@ -1,0 +1,13 @@
+type WorkExperience @aws_api_key @aws_iam {
+  clinicID: ID!
+  clinicName: String!
+  position: String!
+  workPeriod: Period!
+}
+
+input WorkExperienceInput {
+  clinicID: ID
+  clinicName: String!
+  position: String!
+  workPeriod: PeriodInput!
+}

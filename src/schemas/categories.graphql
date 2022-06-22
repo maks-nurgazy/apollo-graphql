@@ -1,0 +1,32 @@
+# graphql/categories.graphql
+
+type Category @aws_api_key @aws_iam {
+  id: ID!
+  # title field needed to support old APIs. Because we used it in old versions.
+  title: String!
+  # name field replaces title field in future realeases.
+  name: String
+  searchTitle: String
+  description: String
+}
+
+type ListCategoriesResponse @aws_api_key @aws_iam {
+  total: Int!
+  categories: [Category]!
+}
+
+input ListCategoriesFilter {
+  category: String!
+  locale: String
+}
+
+input ListCategoriesInput {
+  from: Int
+  query: String
+  size: Int
+  filter: ListCategoriesFilter
+}
+
+extend type Query {
+  listCategories(input: ListCategoriesInput): ListCategoriesResponse! @aws_api_key @aws_iam
+}

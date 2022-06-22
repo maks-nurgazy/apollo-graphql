@@ -1,0 +1,17 @@
+# graphql/workplaces.graphql
+
+type Workplace @aws_api_key @aws_iam {
+  clinicID: ID!
+  clinicName: String!
+  clinicAddress: Address!
+  specialities: [String]!
+  startDate: AWSTimestamp!
+}
+
+input WorkplaceInput {
+  clinicID: ID
+  clinicName: String!
+  clinicAddress: AddressInput!
+  specialities: [String]!
+  startDate: AWSTimestamp!
+}

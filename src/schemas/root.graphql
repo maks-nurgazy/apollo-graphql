@@ -1,9 +1,14 @@
-type Query {
-  _empty: String
-  # define any root queries here
-}
+# graphql/root.graphql
 
-type Mutation {
-  _empty: String
-  # define any root queries here
-}
+type Query
+type Mutation
+
+scalar AWSTimestamp
+scalar AWSURL
+scalar AWSEmail
+scalar AWSPhone
+scalar AWSDate
+
+directive @aws_api_key on FIELD_DEFINITION | OBJECT
+directive @aws_cognito_user_pools on FIELD_DEFINITION | OBJECT
+directive @aws_iam on FIELD_DEFINITION | OBJECT

@@ -1,0 +1,111 @@
+enum AppointmentReason {
+  CONSULTATION
+  TEST
+  TREATMENT
+}
+enum AppointmentStatus {
+  CANCELED_BY_PATIENT
+  CANCELED_BY_PHYSICIAN
+  SERVED
+  WAIT_LIST
+}
+
+enum AppointmentType {
+  VIDEO
+  VISIT
+}
+
+type Appointment {
+  id: ID!
+  type: AppointmentType!
+  status: AppointmentStatus!
+  reason: AppointmentReason!
+  backfill: Boolean!
+
+  registrationDate: AWSTimestamp!
+  appointmentDate: AWSTimestamp!
+  cancelationDate: AWSTimestamp
+  cancelationReason: String
+  servedDate: AWSTimestamp
+
+  physicianId: ID
+  physicianFirstName: String
+  physicianLastName: String
+  specialities: [String]
+  clinic: String
+
+  patientId: ID!
+  patientLastName: String!
+  patientFirstName: String!
+  patientNotes: String
+  attachments: [Attachment]
+
+  diagnoses: [Diagnose]
+}
+
+input AppointmentInput {
+  type: AppointmentType!
+  status: AppointmentStatus!
+  reason: AppointmentReason!
+  backfill: Boolean!
+
+  appointmentDate: AWSTimestamp!
+  acceptedDate: AWSTimestamp
+  registrationDate: AWSTimestamp!
+
+  physicianId: ID
+  physicianFirstName: String
+  physicianLastName: String
+  specialities: [String]
+  clinic: String
+
+  patientId: ID!
+  patientLastName: String!
+  patientFirstName: String!
+  patientNotes: String
+  attachments: [AttachmentInput]
+
+  diagnoses: [DiagnoseInput]
+}
+
+input UpdateAppointmentInput {
+  id: ID!
+  type: AppointmentType
+  status: AppointmentStatus
+  reason: AppointmentReason
+  backfill: Boolean
+
+  appointmentDate: AWSTimestamp
+  acceptedDate: AWSTimestamp
+  registrationDate: AWSTimestamp
+
+  physicianId: ID
+  physicianFirstName: String
+  physicianLastName: String
+  specialities: [String]
+  clinic: String
+
+  patientId: ID
+  patientLastName: String
+  patientFirstName: String
+  patientNotes: String
+  attachments: [AttachmentInput]
+
+  diagnoses: [DiagnoseInput]
+}
+
+type ListAppointmentsResponse {
+  total: Int!
+  appointments: [Appointment]
+}
+
+extend type Query {
+  getAppointment(appointmentId: ID!): Appointment!
+  listPatientAppointments(fromDate: AWSTimestamp toDate: AWSTimestamp from: Int size: Int query: String): ListAppointmentsResponse!
+  listPhysicianAppointments(date: AWSTimestamp): ListAppointmentsResponse!
+}
+
+extend type Mutation {
+  makeAppointment(appointment: AppointmentInput!): Appointment!
+  updateAppointment(appointment: UpdateAppointmentInput!): Appointment!
+}

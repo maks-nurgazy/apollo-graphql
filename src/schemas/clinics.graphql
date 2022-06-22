@@ -1,0 +1,32 @@
+# graphql/clinic.graphql
+
+type Clinic implements Entry @aws_api_key @aws_iam {
+  # Entry fields
+  # Cognito provided ID.
+  id: ID!
+  # User provided inputs
+  avatar: AWSURL
+  consultationPrice: Price
+  contacts: Contacts
+  email: AWSEmail
+  phone: AWSPhone!
+  phonesExtra: [String]
+  profileCompletionRate: Float
+  servicesDescription: String
+  services: [Service]
+  specialities: [String]
+  url: AWSURL
+  rating: Rating
+  # Auto populated
+  joinDate: AWSTimestamp!
+  _typename: EntryType!
+
+  # BaseClinic fields
+  # User provided inputs
+  clinicName: String!
+  alternateName: String
+  clinicAddress: Address!
+  description: String
+  #TODO categories must be required.
+  categories: [String]
+}

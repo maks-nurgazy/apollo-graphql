@@ -1,0 +1,13 @@
+type Service @aws_api_key @aws_iam {
+  id: ID!
+  name: String!
+  price: Price
+  notes: String
+}
+
+input ServiceInput {
+  id: ID
+  name: String!
+  price: PriceInput!
+  notes: String
+}

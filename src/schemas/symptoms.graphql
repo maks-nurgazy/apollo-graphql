@@ -1,0 +1,25 @@
+# graphql/symptoms.graphql
+type Icon @aws_api_key @aws_iam {
+  url: AWSURL!
+}
+
+type Symptom @aws_api_key @aws_iam {
+  id: ID!
+  title: String!
+  icon: Icon!
+}
+
+type ListSymptomsResponse @aws_api_key @aws_iam {
+  total: Int!
+  symptoms: [Symptom]!
+}
+
+input ListSymptomsInput {
+  from: Int
+  query: String
+  size: Int
+}
+
+extend type Query {
+  listSymptoms(input: ListSymptomsInput): ListSymptomsResponse! @aws_api_key @aws_iam
+}

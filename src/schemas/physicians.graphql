@@ -1,0 +1,54 @@
+# graphql/physicians.graphql
+
+type Physician implements Entry @aws_api_key @aws_iam {
+  # Entry fields
+  # Cognito provided ID.
+  id: ID!
+  # User provided inputs
+  avatar: AWSURL
+  consultationPrice: Price
+  contacts: Contacts
+  email: AWSEmail
+  phone: AWSPhone!
+  phonesExtra: [String]
+  profileCompletionRate: Float
+  servicesDescription: String
+  services: [Service]
+  specialities: [String]
+  occupation: String
+  url: AWSURL
+  rating: Rating
+  # Auto populated
+  joinDate: AWSTimestamp!
+  _typename: EntryType!
+
+  # BaseUser fields
+  # User provided inputs
+  firstName: String!
+  lastName: String!
+  patronymic: String
+  education: String
+  experience: String
+  experienceSince: AWSTimestamp
+  educations: [Education]
+  level: String
+  workplaces: [Workplace]
+  workExperience: [WorkExperience]
+  height: Anthropometry
+  birthDate: AWSTimestamp
+  bloodType: BloodType
+  placeOfResidence: Address
+  weight: Anthropometry
+  gender: Gender
+  insurance: Insurance
+  emergencyContact: [TelephoneContact]
+  bio: String
+  physicianCategory: PhysicianCategory
+  personalIdentificationNumber: String
+}
+
+enum PhysicianCategory {
+  FIRST_CATEGORY
+  SECOND_CATEGORY
+  HIGHEST_CATEGORY
+}

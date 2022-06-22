@@ -1,0 +1,9 @@
+type Diagnose {
+  diagnose: String!
+  recommendations: [String]!
+}
+
+input DiagnoseInput {
+  diagnose: String!
+  recommendations: [String]!
+}
