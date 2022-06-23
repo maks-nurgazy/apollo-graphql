@@ -20,7 +20,7 @@ type Physician implements Entry @aws_api_key @aws_iam {
   rating: Rating
   # Auto populated
   joinDate: AWSTimestamp!
-  __typename: EntryType!
+  _typename: EntryType!
 
   # BaseUser fields
   # User provided inputs
@@ -85,8 +85,8 @@ input CreatePhysicianInput {
   personalIdentificationNumber: String
 }
 
- enum PhysicianCategory {
-   FIRST_CATEGORY
-   SECOND_CATEGORY
-   HIGHEST_CATEGORY
+enum PhysicianCategory {
+  FIRST_CATEGORY
+  SECOND_CATEGORY
+  HIGHEST_CATEGORY
 }

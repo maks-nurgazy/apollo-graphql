@@ -21,12 +21,12 @@ input AddressInput {
 type Period @aws_api_key @aws_iam {
   from: AWSTimestamp!
   to: AWSTimestamp
- }
+}
 
 input PeriodInput {
   from: AWSTimestamp!
   to: AWSTimestamp
- }
+}
 
 enum Gender {
   MALE

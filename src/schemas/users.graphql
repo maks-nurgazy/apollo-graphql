@@ -20,7 +20,7 @@ type User implements Entry @aws_api_key @aws_iam {
   url: AWSURL
   # Auto populated
   joinDate: AWSTimestamp!
-  __typename: EntryType!
+  _typename: EntryType!
 
   # BaseUser fields
   # User provided inputs
@@ -63,7 +63,7 @@ input UpdateEntryInput {
   physicianCategory: PhysicianCategory
   educations: [EducationInput]
   contacts: ContactsInput
-  __typename: EntryType
+  _typename: EntryType
 
   # BaseUser fields
   # User provided inputs
