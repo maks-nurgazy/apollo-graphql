@@ -20,7 +20,7 @@ type Physician implements Entry @aws_api_key @aws_iam {
   rating: Rating
   # Auto populated
   joinDate: AWSTimestamp!
-  _typename: EntryType!
+  __typename: EntryType!
 
   # BaseUser fields
   # User provided inputs
@@ -47,8 +47,46 @@ type Physician implements Entry @aws_api_key @aws_iam {
   personalIdentificationNumber: String
 }
 
-enum PhysicianCategory {
-  FIRST_CATEGORY
-  SECOND_CATEGORY
-  HIGHEST_CATEGORY
+input CreatePhysicianInput {
+  # User provided inputs
+  avatar: AWSURL
+  consultationPrice: PriceInput
+  contacts: ContactsInput
+  email: AWSEmail
+  phone: AWSPhone!
+  phonesExtra: [String]
+  servicesDescription: String
+  services: [ServiceInput]
+  specialities: [String]
+  occupation: String
+  url: AWSURL
+
+  # BaseUser fields
+  # User provided inputs
+  firstName: String!
+  lastName: String!
+  patronymic: String
+  education: String
+  experience: String
+  experienceSince: AWSTimestamp
+  educations: [EducationInput]
+  level: String
+  workplaces: [WorkplaceInput]
+  workExperience: [WorkExperienceInput]
+  height: AnthropometryInput
+  birthDate: AWSTimestamp
+  bloodType: BloodType
+  placeOfResidence: AddressInput
+  weight: AnthropometryInput
+  gender: Gender
+  emergencyContact: [TelephoneContactInput]
+  bio: String
+  physicianCategory: PhysicianCategory
+  personalIdentificationNumber: String
+}
+
+ enum PhysicianCategory {
+   FIRST_CATEGORY
+   SECOND_CATEGORY
+   HIGHEST_CATEGORY
 }

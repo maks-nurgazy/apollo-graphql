@@ -20,7 +20,7 @@ type User implements Entry @aws_api_key @aws_iam {
   url: AWSURL
   # Auto populated
   joinDate: AWSTimestamp!
-  _typename: EntryType!
+  __typename: EntryType!
 
   # BaseUser fields
   # User provided inputs
@@ -36,6 +36,12 @@ type User implements Entry @aws_api_key @aws_iam {
   gender: Gender
   insurance: Insurance
   emergencyContact: [TelephoneContact]
+  proAccounts: [Entry]
+}
+
+input CreateEntryInput {
+  clinic: CreateClinicInput
+  physician: CreatePhysicianInput
 }
 
 input UpdateEntryInput {
@@ -57,7 +63,7 @@ input UpdateEntryInput {
   physicianCategory: PhysicianCategory
   educations: [EducationInput]
   contacts: ContactsInput
-  _typename: EntryType
+  __typename: EntryType
 
   # BaseUser fields
   # User provided inputs
@@ -87,10 +93,6 @@ input UpdateEntryInput {
   description: String
 
   locale: String
-}
-
-input CreateEntryInput {
-  lastName: String
 }
 
 union EntryUnion = Clinic | Physician | User

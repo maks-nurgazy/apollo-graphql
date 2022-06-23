@@ -30,3 +30,23 @@ type Clinic implements Entry @aws_api_key @aws_iam {
   #TODO categories must be required.
   categories: [String]
 }
+
+input CreateClinicInput {
+  avatar: AWSURL
+  consultationPrice: PriceInput
+  contacts: ContactsInput
+  email: AWSEmail
+  phone: AWSPhone!
+  phonesExtra: [String]
+  servicesDescription: String
+  services: [ServiceInput]
+  medicalProfiles: [String]
+  url: AWSURL
+
+  # BaseClinic fields
+  # User provided inputs
+  clinicName: String!
+  alternateName: String
+  clinicAddress: AddressInput!
+  description: String
+}

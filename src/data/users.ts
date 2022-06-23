@@ -100,6 +100,6 @@ export const users = [
         'Проблемы мочеиспускания, изменение цвета мочи',
       ],
     },
-    __typename: 'Clinic',
+    _typename: 'Clinic',
   },
 ];
